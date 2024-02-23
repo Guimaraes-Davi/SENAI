@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de CEP</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<header>
+    <img src="exemplo.png" alt="">
+    <ul>
+        <li><a href="">Rastreamento de Objetos</a></li>
+        <li><a href="">Link Correios</a></li>
+        <li><a href="">Busca CEP</a></li>
+        <li><a href="">Sobre</a></li>
+        <li><a href="">FAQ</a></li>
+    </ul>
+</header>
+
+<body>
+    <h3>Site correios > CEP > 44006442</h3>
+    <div class="et2">
+        <ul>
+            <li class="pading"><h1>44006442</h1></li>
+            <li class="color6b7887ff"><h1>Localidade</h1></li>
+        </ul>
+    </div>
+    <div class="retangulo-amarelo">
+        <div class="et1"><h1>Busque outro CEP</h1></div>
+        <div>
+            <input type="text" class=".dttp1" size="50" placeholder="Digite o CEP... ">
+            <button onclick="buscarEndereco()">Buscar</button>
+        </div>        
+    </div>
+    <h5 class="et3">Continua depois da publicidade</h5>
+    
+
+    <script>
+        function buscarEndereco() {
+            var cep = document.getElementById('cepInput').value;
+            var url = `https://viacep.com.br/ws/${cep}/json/`;
+            
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if(data.erro) {
+                    document.getElementById('endereco').innerText = "CEP não encontrado.";
+                } else {
+                    var endereco = `CEP: ${data.cep}, ${data.logradouro}, ${data.bairro}, ${data.localidade}, ${data.uf}`;
+                    document.getElementById('endereco').innerText = endereco;
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+</body>
+</html>
